@@ -54,7 +54,7 @@
     テキスト装飾: なし。
     フォントサイズ:0.6rem;
       /*背景画像の指定*/
-    背景: url("img/top-hiyoko.gif") リピートなし中央;
+    背景: url("https://torichan.netlify.app/img/top-hiyoko.gif") リピートなし中央;
     背景サイズ: 含む;
   }
   
@@ -62,7 +62,7 @@
     幅: 100ピクセル;
     高さ: 130ピクセル;
       /*背景画像の指定*/
-    背景: url("img/heart-fusen.png") リピートなし中央;
+    背景: url("https://torichan.netlify.app/img/heart-fusen.png") リピートなし中央;
     背景サイズ: 含む;
       /*アニメーションの指定*/
     アニメーション: floatAnime 2s リニア無限。
