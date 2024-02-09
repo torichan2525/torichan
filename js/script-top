@@ -1,0 +1,13 @@
+// #page-topをクリックした際の設定
+$('#page-top').click(function () {
+  var scroll = $(window).scrollTop(); //スクロール値を取得
+  if(scroll > 0){
+    $(this).addClass('floatAnime');//クリックしたらfloatAnimeというクラス名が付与
+        $('body,html').animate({
+            scrollTop: 0
+        }, 2000,function(){//スクロールの速さ。数字が大きくなるほど遅くなる
+            $('#page-top').removeClass('floatAnime');//上までスクロールしたらfloatAnimeというクラス名を除く
+        }); 
+  }
+    return false;//リンク自体の無効化
+});
