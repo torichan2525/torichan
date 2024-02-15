@@ -52,15 +52,3 @@
 	height:calc(100% - 2px);
 	border-color:#666
 }
-
-/*========= レイアウトのためのCSS ===============*/
-
-body{
-    vertical-align:middle; 
-    padding: 100px 0;
-    text-align: center;
-}
-
-p{
-    margin: 0 0 10px 0;
-}
