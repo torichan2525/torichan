@@ -134,3 +134,24 @@
     /*ボックスの影*/   
     box-shadow: 0 5px 10px rgb(250,108,159,0.4);
 }
+
+/*ボタンの形状*/
+.float3{
+  position:relative;
+  top:0;
+    padding:10px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: #333;
+    text-decoration: none;
+    outline: none;
+    /*アニメーションの設定*/
+    transition: all .3s;
+}
+
+/*hoverをしたらボックスに影がつき、上に上がる*/
+.float3:hover {
+  top:-3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
