@@ -93,39 +93,65 @@ $('[data-fancybox]').fancybox({
     autoStart: false, //グループのサムネイル一覧をデフォルトで出す。不必要であればfalseに
   },	
 });
-関数 delayScrollAnime ( )  {
-	var 時間 =  0.2 ; // 遅延時間を増やす秒数を指定する
-	var 値 = 時間;
-	$ ( '.delayScroll' ) . each (関数 ( )  {
-		var 親 =  this ; 					//親要素を取得する
-		var  elemPos  =  $ ( this ) 。オフセット（）。上; //要素の位置まで
-		var  scroll  =  $ (ウィンドウ) 。スクロールトップ( ) ; //スクロール値を取得する
-		var  windowHeight  =  $ ( window ) 。身長（）; // 画面を表示する
-		var  childs  =  $ ( this ) 。子供たち（）; 	//子要素
 
-		if  ( scroll  >=  elemPos  -  windowHeight  &&  ! $ ( parent ) . hasClass ( "play" ) )  { //指定領域内にスクロールが入ったらまた親要素にクラスplayがなければ
-			$ (子) . each (関数 ( )  {
+/*===========================================================*/
+/* 印象編 4-12 順番に現れる（CSS x jQuery）*/
+/*===========================================================*/
 
-				if  ( ! $ ( this ) . hasClass ( "fadeUp" ) )  { // アニメーションのクラス名を購入しているかどうかをチェック
-
-					$ (親) 。クラスを追加します( "play" ) ; 	//親要素にクラス名playを追加
-					$ (これ) 。css ( "animation-delay" 、 値 +  "s" ) ; // アニメーション遅延のCSS animation-delayを追加し
-					$ (これ) 。addClass ( "フェードアップ" ) ; // アニメーションのクラス名を追加
-					値 = 値 + 時間; //遅延時間を増加させる
-
-					//全ての処理を終えたらplayを外す
-					var  index  =  $ ( childs ) .index ( this ) ;​
-					if ( ( childs.length - 1 ) == index ) {​​  
-						$ (親) .removeClass ( " play" ) ;
+function delayScrollAnime() {
+	var time = 0.2;//遅延時間を増やす秒数の値
+	var value = time;
+	$('.delayScroll').each(function () {
+		var parent = this;					//親要素を取得
+		var elemPos = $(this).offset().top;//要素の位置まで来たら
+		var scroll = $(window).scrollTop();//スクロール値を取得
+		var windowHeight = $(window).height();//画面の高さを取得
+		var childs = $(this).children();	//子要素
+		
+		if (scroll >= elemPos - windowHeight && !$(parent).hasClass("play")) {//指定領域内にスクロールが入ったらまた親要素にクラスplayがなければ
+			$(childs).each(function () {
+				
+				if (!$(this).hasClass("fadeUp")) {//アニメーションのクラス名が指定されているかどうかをチェック
+					
+					$(parent).addClass("play");	//親要素にクラス名playを追加
+					$(this).css("animation-delay", value + "s");//アニメーション遅延のCSS animation-delayを追加し
+					$(this).addClass("fadeUp");//アニメーションのクラス名を追加
+					value = value + time;//delay時間を増加させる
+					
+					//全ての処理を終わったらplayを外す
+					var index = $(childs).index(this);
+					if((childs.length-1) == index){
+						$(parent).removeClass("play");
 					}
 				}
-			} ）
-		}それ以外 {
-			$ (子) 。removeClass ( "フェードアップ" ) ; // アニメーションのクラス名を削除
-			値 = 時間; //delay初期値の数値を返す
+			})
+		}else {
+			$(childs).removeClass("fadeUp");//アニメーションのクラス名を削除
+			value = time;//delay初期値の数値に戻す
 		}
-	} ）
+	})
 }
+
+
+/*===========================================================*/
+/* 印象編 8-1 テキストがバラバラに出現 */
+/*===========================================================*/
+
+// TextRandomAnimeにappearRandomtextというクラス名を付ける定義
+function TextRandomAnimeControl() {
+	$('.TextRandomAnime').each(function () {
+		var elemPos = $(this).offset().top - 50;
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass("appearRandomtext");
+		} else {
+			$(this).removeClass("appearRandomtext");
+		}
+	});
+}
+
+
 //========================================================
 // 関数をまとめる
 //========================================================
@@ -180,8 +206,62 @@ $('.sort-btn li').on('click',function(){			//並び替えボタンをクリッ�
 /* 印象編 8-1 テキストがバラバラに出現 */
 /*===========================================================*/
 
+//spanタグを追加する
+	var element = $(".TextRandomAnime");
+	element.each(function () {
+		var text = $(this).text();
+        var textbox = '';
+        text.split('').forEach(function (t) {
+            textbox += '<span>' + t + '</span>';
+		});
+        $(this).html(textbox);
+	});
+    
 /*===========================================================*/
 /*機能編  4-1-1数字カウントアップ*/
 /*===========================================================*/
 
+//テキストのカウントアップの設定
+var bar = new ProgressBar.Line(splash_text, {//id名を指定
+	strokeWidth: 0,//進捗ゲージの太さ
+	duration: 1000,//時間指定(1000＝1秒)
+	trailWidth: 0,//線の太さ
+	text: {//テキストの形状を直接指定	
+		style: {//天地中央に配置
+			position:'absolute',
+			left:'50%',
+			top:'50%',
+			padding:'0',
+			margin:'0',
+			transform:'translate(-50%,-50%)',
+			//'font-size':'5rem',
+			color:'#fff',
+		},
+		autoStyleContainer: false //自動付与のスタイルを切る
+	},
+	step: function(state, bar) {
+		bar.setText(Math.round(bar.value() * 100) + ' <span>%</span>'); //テキストの数値
+	}
+});
 
+//アニメーションスタート
+bar.animate(1.0, function () {//バーを描画する割合を指定します 1.0 なら100%まで描画します
+    
+//=====ここからローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる    
+	$("#splash").delay(500).fadeOut(800,function(){//#splashエリアをフェードアウトした後にアニメーションを実行
+    PageTopCheck();//機能編 8-1-7 スクロール途中からリンクボタンの形状が変化の関数を呼ぶ
+    delayScrollAnime();//印象編 4-12 順番に現れる（CSS x jQuery）の関数を呼ぶ
+	TextRandomAnimeControl();//印象編 8-1 テキストがバラバラに出現の関数を呼ぶ
+    });
+//=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
+
+}); 
+       
+});//ここまでページが読み込まれたらすぐに動かしたい場合の記述
+
+// 画面をスクロールをしたら動かしたい場合の記述
+$(window).scroll(function () {
+	PageTopCheck();//機能編 8-1-7 スクロール途中からリンクボタンの形状が変化の関数を呼ぶ
+	delayScrollAnime();// 印象編 4-12 順番に現れる（CSS x jQuery）の関数を呼ぶ
+	TextRandomAnimeControl();//印象編 8-1 テキストがバラバラに出現の関数を呼ぶ
+});
