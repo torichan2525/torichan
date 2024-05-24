@@ -103,21 +103,6 @@ $('[data-fancybox]').fancybox({
 /* 印象編 8-1 テキストがバラバラに出現 */
 /*===========================================================*/
 
-// TextRandomAnimeにappearRandomtextというクラス名を付ける定義
-function TextRandomAnimeControl() {
-	$('.TextRandomAnime').each(function () {
-		var elemPos = $(this).offset().top - 50;
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight) {
-			$(this).addClass("appearRandomtext");
-		} else {
-			$(this).removeClass("appearRandomtext");
-		}
-	});
-}
-
-
 //========================================================
 // 関数をまとめる
 //========================================================
@@ -172,62 +157,8 @@ $('.sort-btn li').on('click',function(){			//並び替えボタンをクリッ�
 /* 印象編 8-1 テキストがバラバラに出現 */
 /*===========================================================*/
 
-//spanタグを追加する
-	var element = $(".TextRandomAnime");
-	element.each(function () {
-		var text = $(this).text();
-        var textbox = '';
-        text.split('').forEach(function (t) {
-            textbox += '<span>' + t + '</span>';
-		});
-        $(this).html(textbox);
-	});
-    
 /*===========================================================*/
 /*機能編  4-1-1数字カウントアップ*/
 /*===========================================================*/
 
-//テキストのカウントアップの設定
-var bar = new ProgressBar.Line(splash_text, {//id名を指定
-	strokeWidth: 0,//進捗ゲージの太さ
-	duration: 1000,//時間指定(1000＝1秒)
-	trailWidth: 0,//線の太さ
-	text: {//テキストの形状を直接指定	
-		style: {//天地中央に配置
-			position:'absolute',
-			left:'50%',
-			top:'50%',
-			padding:'0',
-			margin:'0',
-			transform:'translate(-50%,-50%)',
-			//'font-size':'5rem',
-			color:'#fff',
-		},
-		autoStyleContainer: false //自動付与のスタイルを切る
-	},
-	step: function(state, bar) {
-		bar.setText(Math.round(bar.value() * 100) + ' <span>%</span>'); //テキストの数値
-	}
-});
 
-//アニメーションスタート
-bar.animate(1.0, function () {//バーを描画する割合を指定します 1.0 なら100%まで描画します
-    
-//=====ここからローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる    
-	$("#splash").delay(500).fadeOut(800,function(){//#splashエリアをフェードアウトした後にアニメーションを実行
-    PageTopCheck();//機能編 8-1-7 スクロール途中からリンクボタンの形状が変化の関数を呼ぶ
-    delayScrollAnime();//印象編 4-12 順番に現れる（CSS x jQuery）の関数を呼ぶ
-	TextRandomAnimeControl();//印象編 8-1 テキストがバラバラに出現の関数を呼ぶ
-    });
-//=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
-
-}); 
-       
-});//ここまでページが読み込まれたらすぐに動かしたい場合の記述
-
-// 画面をスクロールをしたら動かしたい場合の記述
-$(window).scroll(function () {
-	PageTopCheck();//機能編 8-1-7 スクロール途中からリンクボタンの形状が変化の関数を呼ぶ
-	delayScrollAnime();// 印象編 4-12 順番に現れる（CSS x jQuery）の関数を呼ぶ
-	TextRandomAnimeControl();//印象編 8-1 テキストがバラバラに出現の関数を呼ぶ
-});
