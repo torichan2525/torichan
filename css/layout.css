@@ -1,0 +1,123 @@
+@charset "utf-8";
+/* レイアウトのためのCSS */
+
+body{
+    background:#f0f0f0;
+    font-family:'Marcellus', serif,"游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "メイリオ", sans-serif;
+	color: #333;
+	font-size:1rem;
+	line-height:1.85;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%; 
+	word-wrap: break-word;
+}
+
+@media screen and (max-width:768px) {
+body{
+	font-size:0.8rem;
+	}
+}
+
+ul{
+	margin:0;
+	padding: 0;
+	list-style: none;
+}
+
+a{
+	color: #333;
+    outline: none;
+}
+
+a:hover,
+a:active{
+	text-decoration: none;
+}
+
+
+/*数字カウント*/
+
+.progressbar-text{
+    font-size:5rem;
+   font-family: 'Italianno', cursive;
+}
+
+.progressbar-text span{
+    font-size:2rem;
+}
+
+/*横幅が768px以下になった際の指定*/
+@media only screen and (max-width:768px) {
+.progressbar-text{
+    font-size:3rem;
+}
+.progressbar-text span{
+    font-size:1.3rem;
+}
+
+}
+
+
+/* heading */
+
+.heading-block{
+    position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.heading-block h1{
+    font-size:6vw;
+	letter-spacing: 0.2em;
+	color: #fff;
+    line-height: 1;
+    font-family: 'Italianno', cursive;
+}
+
+.heading-block p{
+    font-size:2vw;
+	letter-spacing: 0.2em;
+	color: #fff;
+}
+/*横幅が768px以下になった際の指定*/
+@media only screen and (max-width:768px) {
+  .heading-block h1{
+    font-size:4em;
+    }
+.heading-block p{
+    font-size:1.5em;
+    }
+}
+
+/* sns icon */
+#sns-icon img{
+    width: 20px;
+}
+
+#sns-icon{
+    position: absolute;
+    right:20px;
+    top:45%;
+}
+
+#sns-icon li{
+     margin:0 0 15px 0;   
+}
+
+/* copyright */
+
+small{
+    position: absolute;
+    left:20px;
+    top:40%;
+    color: #fff;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    -ms-writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+}
