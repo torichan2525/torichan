@@ -99,7 +99,7 @@ $('[data-fancybox]').fancybox({
 /*===========================================================*/
 
 function delayScrollAnime() {
-	var time = 0.2;//遅延時間を増やす秒数の値
+	var time = 0;//遅延時間を増やす秒数の値
 	var value = time;
 	$('.delayScroll').each(function () {
 		var parent = this;					//親要素を取得
