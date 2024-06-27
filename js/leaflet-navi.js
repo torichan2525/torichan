@@ -14,7 +14,7 @@ L.Control.Window = L.Control.extend({
         modal: false,
         position: 'center',
         autoClose: true, // New option for automatic closing
-        autoCloseTime: 3000, // New option for auto-close duration (in milliseconds)
+        autoCloseTime: 10000, // New option for auto-close duration (in milliseconds)
     },
     initialize: function (container, options) {
         var self = this;
