@@ -1,26 +1,11 @@
-
-L.Map.mergeOptions({
-    // @section Mousewheel options
-    // @option smoothWheelZoom: Boolean|String = true
-    // Whether the map can be zoomed by using the mouse wheel. If passed `'center'`,
-    // it will zoom to the center of the view regardless of where the mouse was.
-    smoothWheelZoom: true,
-
-    // @option smoothWheelZoom: number = 1
-    // setting zoom speed
-    smoothSensitivity:1
-
-});
-
-
 L.Map.SmoothWheelZoom = L.Handler.extend({
 
     addHooks: function () {
-        L.DomEvent.on(this._map._container, 'wheel', this._onWheelScroll, this);
+        L.DomEvent.on(this._map._container, 'mousewheel', this._onWheelScroll, this);
     },
 
     removeHooks: function () {
-        L.DomEvent.off(this._map._container, 'wheel', this._onWheelScroll, this);
+        L.DomEvent.off(this._map._container, 'mousewheel', this._onWheelScroll, this);
     },
 
     _onWheelScroll: function (e) {
@@ -54,7 +39,7 @@ L.Map.SmoothWheelZoom = L.Handler.extend({
     _onWheeling: function (e) {
         var map = this._map;
 
-        this._goalZoom = this._goalZoom + L.DomEvent.getWheelDelta(e) * 0.003 * map.options.smoothSensitivity;
+        this._goalZoom = this._goalZoom - e.deltaY * 0.003 * map.options.smoothSensitivity;
         if (this._goalZoom < map.getMinZoom() || this._goalZoom > map.getMaxZoom()) {
             this._goalZoom = map._limitZoom(this._goalZoom);
         }
@@ -62,15 +47,11 @@ L.Map.SmoothWheelZoom = L.Handler.extend({
 
         clearTimeout(this._timeoutId);
         this._timeoutId = setTimeout(this._onWheelEnd.bind(this), 200);
-
-        L.DomEvent.preventDefault(e);
-        L.DomEvent.stopPropagation(e);
     },
 
     _onWheelEnd: function (e) {
         this._isWheeling = false;
         cancelAnimationFrame(this._zoomAnimationId);
-        this._map._moveEnd(true);
     },
 
     _updateWheelZoom: function () {
@@ -105,5 +86,3 @@ L.Map.SmoothWheelZoom = L.Handler.extend({
     }
 
 });
-
-L.Map.addInitHook('addHandler', 'smoothWheelZoom', L.Map.SmoothWheelZoom );
