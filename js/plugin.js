@@ -692,3 +692,85 @@ L.Map.addInitHook('addHandler', 'smoothWheelZoom', L.Map.SmoothWheelZoom );
 
 
 //・・・・・・・・・・・・SmoothWheelZoom・・・・・・・・・・・・・//
+
+//・・・・・・・・・・・・ページ移動　ポップアップ・・・・・・・・・・・・・//
+
+class CustomPopup {
+    constructor() {
+        this.overlay = null;
+    }
+
+    show(url) {
+        this.createOverlay();
+        this.createPopup(url);
+        document.body.appendChild(this.overlay);
+    }
+
+    createOverlay() {
+        this.overlay = document.createElement('div');
+        this.overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+
+        this.overlay.onclick = (e) => {
+            if (e.target === this.overlay) {
+                this.close();
+            }
+        };
+    }
+
+    createPopup(url) {
+        const popup = document.createElement('div');
+        popup.style.cssText = `
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        `;
+
+        popup.innerHTML = `
+            <h2 style="margin: 0 0 20px; color: #333; font-size: 24px;">新しいページへ移動</h2>
+            <p style="margin: 0 0 25px; color: #666; font-size: 16px;">新しいページに移動しますか？</p>
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <button id="okButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #4CAF50; color: white;">OK</button>
+                <button id="cancelButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #f44336; color: white;">キャンセル</button>
+            </div>
+        `;
+
+        const okButton = popup.querySelector('#okButton');
+        okButton.onclick = () => {
+            window.location.href = url;
+            this.close();
+        };
+
+        const cancelButton = popup.querySelector('#cancelButton');
+        cancelButton.onclick = () => this.close();
+
+        this.overlay.appendChild(popup);
+    }
+
+    close() {
+        if (this.overlay && this.overlay.parentNode) {
+            this.overlay.parentNode.removeChild(this.overlay);
+        }
+    }
+}
+
+// グローバルに利用可能にする
+window.CustomPopup = CustomPopup;
+
+//・・・・・・・・・・・・ページ移動　ポップアップ・・・・・・・・・・・・・//
+
+
