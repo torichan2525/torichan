@@ -719,6 +719,8 @@ class CustomPopup {
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px; /* 左右の余白を追加 */
+            box-sizing: border-box; /* パディングを幅に含める */
         `;
 
         this.overlay.onclick = (e) => {
@@ -736,16 +738,17 @@ class CustomPopup {
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             max-width: 400px;
-            width: 90%;
+            width: 100%; /* 幅を100%に設定 */
             text-align: center;
+            box-sizing: border-box; /* パディングを幅に含める */
         `;
 
         popup.innerHTML = `
             <h2 style="margin: 0 0 20px; color: #333; font-size: 24px;">新しいページへ移動</h2>
             <p style="margin: 0 0 25px; color: #666; font-size: 16px;">新しいページに移動しますか？</p>
-            <div style="display: flex; justify-content: center; gap: 15px;">
-                <button id="okButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #4CAF50; color: white;">OK</button>
-                <button id="cancelButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #f44336; color: white;">キャンセル</button>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;"> <!-- flex-wrap を追加 -->
+                <button id="okButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #4CAF50; color: white; margin: 5px;">OK</button>
+                <button id="cancelButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #f44336; color: white; margin: 5px;">キャンセル</button>
             </div>
         `;
 
@@ -770,7 +773,6 @@ class CustomPopup {
 
 // グローバルに利用可能にする
 window.CustomPopup = CustomPopup;
-
 //・・・・・・・・・・・・ページ移動　ポップアップ・・・・・・・・・・・・・//
 
 
