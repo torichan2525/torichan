@@ -1,0 +1,60 @@
+/*== 矢印の線がループして伸縮 */
+
+.btnlinestretches5{
+    /*線の基点とするためrelativeを指定*/
+	position:relative;
+    /*リンクの形状*/ 
+	color:#333;
+    padding: 10px 0;
+	display:inline-block;
+    text-decoration: none;
+    outline: none;
+}
+
+/*線の設定*/
+.btnlinestretches5::before {
+    content: "";
+    /*絶対配置で線の位置を決める*/
+    position: absolute;
+    bottom: 0;
+    /*線の形状*/
+    width: 100%;
+    height: 1px;
+    background: #333;
+}
+
+/*矢印の設定*/
+.btnlinestretches5::after {
+    content: "";
+    /*絶対配置で線の位置を決める*/
+    position: absolute;
+    bottom:-4px;
+    /*矢印の形状*/
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #333;
+    border-right: 1px solid #333;
+    transform: rotate(45deg);
+}
+
+/*線と矢印を繰り返しアニメーション*/
+.btnlinestretches5::before {
+    animation: arrowlong01 2s ease infinite;
+}
+.btnlinestretches5::after {
+    animation: arrowlong02 2s ease infinite;
+}
+
+@keyframes arrowlong01{
+    0%{width:0;opacity:0}
+    20%{width:0;opacity:1}
+    80%{width:105%;opacity:1}
+    100%{width:105%;opacity:0}
+}
+
+@keyframes arrowlong02{
+    0%{left:0;opacity:0}
+    20%{left:0;opacity:1}
+    80%{left:103%;opacity:1}
+    100%{left:103%;opacity:0}
+}
